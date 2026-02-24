@@ -83,14 +83,14 @@ mainContainer.addEventListener('click', function(event){
     const status = parenNode.querySelector('.status').innerText
     const notes = parenNode.querySelector('.notes').innerText 
 
-    parenNode.querySelector('.status').innerText = 'interview'
+    parenNode.querySelector('.status').innerHTML = `<button class="bg-green-100 text-green-500 p-1 outline">interview</button>`
 
 
     const cardInfo = {
         mobileFirst,
         reactNative,
         jobDetails,
-        status: 'interview',
+        status: '<button class="bg-green-100 text-green-500 p-1 outline">interview</button>',
         notes
     }
 
@@ -118,14 +118,14 @@ mainContainer.addEventListener('click', function(event){
     const status = parenNode.querySelector('.status').innerText
     const notes = parenNode.querySelector('.notes').innerText 
 
-    parenNode.querySelector('.status').innerText = 'rejected'
+    parenNode.querySelector('.status').innerHTML = `<button class="bg-red-100 text-red-500 p-1 outline">rejected</button>`
 
 
     const cardInfo = {
         mobileFirst,
         reactNative,
         jobDetails,
-        status: 'rejected',
+        status: '<button class="bg-red-100 text-red-500 p-1 outline">rejected</button>',
         notes
     }
 
@@ -154,7 +154,6 @@ mainContainer.addEventListener('click', function(event){
 function renderInterview (){
     filterSection.innerHTML = ''
     
-
     for(let inter of interviewList) {
         console.log(inter)
         let div = document.createElement('div');
@@ -225,4 +224,7 @@ function renderRejected (){
         filterSection.appendChild(div)
     }
 }
+
+
+
 
