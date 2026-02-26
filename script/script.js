@@ -110,6 +110,35 @@ mainContainer.addEventListener('click', function(event){
     }
     }
 
+   else if (event.target.closest('.delete-btn')) {
+        const card = event.target.closest('.job-card');
+
+        if (card) {
+            const mobileFirst = card.querySelector('.mobileFirst').innerText;
+
+            rejectedList = rejectedList.filter(item => item.mobileFirst !== mobileFirst);
+            interviewList = interviewList.filter(item => item.mobileFirst !== mobileFirst);
+
+            const originalCards = allCards.querySelectorAll('.job-card');
+            originalCards.forEach(originalCard => {
+                const name = originalCard.querySelector('.mobileFirst').innerText;
+                if (name === mobileFirst) {
+                    originalCard.remove();
+                }
+            });
+            card.remove();
+
+            if (currentStatus === 'rejected-filter-btn') {
+                renderRejected();
+            } else if (currentStatus === 'interview-filter-btn') {
+                renderInterview();
+            }
+
+            calculationCount();
+        }
+    }
+    
+
     else if(event.target.classList.contains('rejected-btn')) {
         const parenNode = event.target.parentNode.parentNode;
     const mobileFirst = parenNode.querySelector('.mobileFirst').innerText
@@ -153,6 +182,15 @@ mainContainer.addEventListener('click', function(event){
 
 function renderInterview (){
     filterSection.innerHTML = ''
+
+        if(interviewList.length === 0){
+        filterSection.innerHTML = `<div class="empty text-center bg-white px-[50px] py-[20px] rounded-lg my-4 lg:p-[130px]"> 
+                <i class="fa-solid fa-file-lines text-9xl "></i> 
+                <h2 class="text-2xl font-bold mt-6 mb-1">No jobs Available</h2> 
+                <p>Check back soon for new job opportunities</p> 
+            </div>` 
+    }
+    
     
     for(let inter of interviewList) {
         console.log(inter)
@@ -190,6 +228,13 @@ function renderInterview (){
 
 function renderRejected (){
     filterSection.innerHTML = ''
+    if(rejectedList.length === 0){
+           filterSection.innerHTML = `<div class="empty text-center bg-white px-[50px] py-[20px] rounded-lg my-4 lg:p-[130px]"> 
+                <i class="fa-solid fa-file-lines text-9xl "></i> 
+                <h2 class="text-2xl font-bold mt-6 mb-1">No jobs Available</h2> 
+                <p>Check back soon for new job opportunities</p> 
+            </div>` 
+    }
     
 
     for(let reject of rejectedList) {
@@ -224,6 +269,19 @@ function renderRejected (){
         filterSection.appendChild(div)
     }
 }
+
+
+
+document.addEventListener('click', function (event) {
+  
+  if (event.target.closest('.deleted-btn')) {
+
+    const card = event.target.closest('.job-card');
+
+    card.remove(); 
+
+  }
+})
 
 
 
